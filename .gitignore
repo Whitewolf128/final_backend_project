@@ -1,0 +1,8 @@
+node_modules/
+dist/
+# .gitignore
+serviceAccount.json
+.env
+logs/
+*.logs
+.vscode/
