@@ -63,7 +63,7 @@ export const postSchemas = {
             releaseDate: Joi.date().required().greater('now'),
             popularSong:  Joi.string().required().min(2).max(50),
             funFact:  Joi.string().required().min(30).max(200),
-            yearsToured: Joi.string().required().min(4).max(9),
+            yearsToured: Joi.string().min(4).max(9),
             content: Joi.string().required().messages({
                 "any.required": "Content is required",
                 "string.empty": "Content cannot be empty",
@@ -80,6 +80,6 @@ export const postSchemas = {
             releaseDate: Joi.date().required().greater('now'),
             popularSong:  Joi.string().required().min(2).max(50),
             funFact:  Joi.string().required().min(30).max(200),
-            yearsToured: Joi.string().required().min(4).max(9)
+            yearsToured: Joi.string().min(4).max(9)
     },
 };

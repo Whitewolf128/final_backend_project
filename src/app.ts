@@ -4,7 +4,7 @@ import musicRouter from "./api/v1/routes/musicRoutes";
 import helmet from "helmet";
 import cors from "cors";
 import dotenv from "dotenv";
-import setupSwagger from "../config/swagger";
+import setupSwagger from "../src/config/swagger";
 const app: Express = express();
 dotenv.config();
 app.use(express.json()); //  use JSON body parsing
