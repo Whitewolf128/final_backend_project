@@ -1,7 +1,6 @@
 import * as postService from '../src/api/v1/services/musicServices';
 import * as firestoreRepository from '../src/api/v1/repositories/firestoreRepository';
-import { mock } from 'node:test';
-import { jest, beforeEach, afterEach, afterAll, it, expect, describe } from '@jest/globals';
+import { jest, beforeEach, it, expect, describe } from '@jest/globals';
 
 
 // Mock the repository module
@@ -46,6 +45,5 @@ describe('Post Services', () => {
             }
             );
         });
-
     });
 });

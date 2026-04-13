@@ -70,4 +70,8 @@ export const deleteMusic = (id: string): string => {
     // Logic to delete an item from the database
     return "Music has been deleted";
 };
+
+export function createPost(mockInput: { Id: string; content: string; }) {
+    throw new Error('Function not implemented.');
+}
 // ... other service functions (getPostById, updatePost, deletePost) ...
