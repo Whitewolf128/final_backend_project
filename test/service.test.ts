@@ -21,8 +21,8 @@ describe('Post Services', () => {
             };
 
             const mockRepositoryResponse = "post-1";
-
-            (firestoreRepository.createDocument as jest.MockedFunction<typeof firestoreRepository.createDocument>).mockResolvedValue(mockRepositoryResponse);
+            
+            (firestoreRepository.createDocument as jest.MockedFunction<typeof firestoreRepository.createDocument>).mockResolvedValue(mockRepositoryResponse);//Why do i need a comma >:(
             
             // Act
             const result = await postService.createPost(mockInput);

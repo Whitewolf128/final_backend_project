@@ -1,3 +1,5 @@
+https://dev.to/jakaria/file-upload-api-with-multer-12hc
+
 * What component I chose?
 Multer for File Uploads: Allows users to upload files, such as images or documents, with validation and size restrictions.
 
@@ -5,103 +7,95 @@ Multer for File Uploads: Allows users to upload files, such as images or documen
 I chose it in case you want to upload either a lyric of your favourite song .html from that album or maybe a picture of the album to show where it came from to help others look for it.
 
 *** 2-3 ways to integrate it.
-    1. from dave bernhards web dev blog, Doing it in react and typescript:
-        import React, { useRef, ChangeEvent } from 'react'
+from dev site:
+    1. installs:
 
-        import React, { useRef, ChangeEvent } from 'react'
+    npm install express multer
+    npm install -D typescript ts-node-dev @types/node @types/express @types/multer
 
-        const UploadButton = () => {
-            const uploadRef =             useRef<HTMLInputElement>(null)
-                const handleUpload = () => {
-                    console.log('File upload input clicked...')
-                }
-        
+    2. tsconfig.json:
 
-            return (
-                <>
-                <button onClick={() => uploadRef.current?.click()}>Upload file</button>
+    {
+        "compilerOptions": {
+            "target": "es6",
+            "module": "commonjs",
+            "outDir": "./dist",
+            "strict": true,
+            "esModuleInterop": true
+    },
+    "include": ["./**/*.ts"]
+    }
 
-                <input
-                type="file"
-                ref={uploadRef}
-                onChange={handleUpload}
-                style={{ display: 'none' }}
-                />
-                </>
-    
-            )
-        }
-    2. option 1: Using the FileReader api:
-        
-        const handleUpload = (e: ChangeEvent<HTMLInputElement>) => {
-            if (e.target.files === null) {
-            return
-        }
-        const file = e.target.files[0]
+    3. middleware:
 
-        if (file) {
-            if (file.type !== 'text/csv') {
-                console.error('Please upload a .csv file')
-            }
+    import multer from 'multer';
+    import path from 'path';
+    import fs from 'fs';
 
-            const fileReader = new FileReader()
-            fileReader.onload = (event) => {
-                const contents = event?.target?.result
-                // do something with the file contents here
-            }
+    // Ensure uploads directory exists
+    const uploadDir = path.join(process.cwd(), 'uploads');
+    if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+    }
 
-            e.target.value = ''
-            fileReader.readAsText(file)
-        } else {
-            console.error('File could not be uploaded. Please try again.')
-        }
-        }
+    const storage = multer.diskStorage({
+        destination: (_req, _file, cb) => cb(null, uploadDir),
+        filename: (_req, file, cb) => {
+            const timestamp = Date.now();
+            cb(null, `${timestamp}-${file.originalname}`);
+        },
+    });
 
-    3. all together with better error handling:
-        import React, { useRef, useState, ChangeEvent } from 'react'
+    export const upload = multer({ storage });
 
-        const UploadButton = () => {
-            const [uploadError, setUploadError] = useState('')
-            const uploadRef = useRef<HTMLInputElement>(null)
+    4. Service:
 
-            const handleUpload = (e: ChangeEvent<HTMLInputElement>) => {
-                if (e.target.files === null) {
-                return //NULL
-                }
-                const file = e.target.files[0]
+    export const handleUploadService = (file: Express.Multer.File) => {
+        return {
+            message: 'File uploaded successfully!',
+            originalName: file.originalname,
+            filename: file.filename,
+            path: file.path,
+            size: file.size,
+        };
+    };
 
-                if (file) {
-                    if (file.type !== 'text/csv') {
-                        setUploadError('Please upload a .csv file')
-                    }
+    5. Controller:
+    import { Request, Response } from 'express';
+    import { handleUploadService } from '../services/upload.service';
 
-                    const fileReader = new FileReader()
-                    fileReader.onload = (event) => {
-                        const contents = event?.target?.result
-                        // do something with the file contents here
-                    }
+    export const uploadFile = (req: Request, res: Response) => {
+        if (!req.file) {
+            return res.status(400).json({ error: 'No file uploaded' });
+        } 
 
-                    e.target.value = ''
-                fileReader.readAsText(file)
-                } else {
-                    setUploadError('File could not be uploaded. Please try again.')
-                }
-            }
+        const data = handleUploadService(req.file);
+        res.status(200).json(data);
+    };
 
-            return (
-                <>
-                {/* style this however you like */}
-                <button onClick={() => uploadRef.current?.click()}>Upload file</button>
+    6. Route:
 
-                <input
-                    type="file"
-                    ref={uploadRef}
-                    onChange={handleUpload}
-                    style={{ display: 'none' }}
-                />
+    import { Router } from 'express';
+    import { upload } from '../middleware/upload.middleware';
+    import { uploadFile } from '../controllers/upload.controller';
 
-                {uploadError ? <p>{uploadError}</p> : null}
-                </>
-            )
-        }
-       *note: will fix the .csv thing in milestone 2.
+    const router = Router();
+
+    router.post('/file', upload.single('file'), uploadFile);
+
+    export default router;
+
+    7. App.ts
+
+    import express from 'express'; <- this is already in prior to this part
+    import uploadRoute from './routes/upload.route';
+
+    const app = express(); <- this is already in prior to this part
+    const PORT = 3000; <- this is in the server.ts
+
+    app.use(express.json()); <- this is already in prior to this part
+    app.use('/api/upload', uploadRoute);
+
+    app.listen(PORT, () => {
+        console.log(`Server running at http://localhost:${PORT}`);
+    }); <- this is in the server.ts

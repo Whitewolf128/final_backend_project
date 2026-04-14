@@ -54,7 +54,7 @@ musicRouter.post(
  *       '404':
  *         description: event not found
  */
-musicRouter.get("/events", getAllMusicsController);
+musicRouter.get("/music", getAllMusicsController);
 // API doc 2: Post event endpoint with request parameters
 /**
  * @openapi
@@ -89,7 +89,7 @@ musicRouter.get("/events", getAllMusicsController);
  *         description: event not found
  */
 
-musicRouter.post("/events", validateRequest(postSchemas.create), createMusicsController);
+musicRouter.post("/music", validateRequest(postSchemas.create), createMusicsController);
 // API doc 1: GET event endpoint with request parameters
 /**
  * @openapi
@@ -123,7 +123,7 @@ musicRouter.post("/events", validateRequest(postSchemas.create), createMusicsCon
  *       '404':
  *         description: event not found
  */
-musicRouter.put("/events/:id", updateMusicController);
+musicRouter.put("/music/:id", updateMusicController);
 // API doc 1: GET event endpoint with request parameters
 /**
  * @openapi
@@ -157,7 +157,7 @@ musicRouter.put("/events/:id", updateMusicController);
  *       '404':
  *         description: event not found
  */
-musicRouter.delete("/events/:id", deleteMusicController);
+musicRouter.delete("/music/:id", deleteMusicController);
 
 
 export default musicRouter;

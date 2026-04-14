@@ -4,7 +4,7 @@ import { AuthorizationError } from "../src/api/v1/errors/errors";
 import { jest, beforeEach, afterEach, afterAll, it, expect, describe } from '@jest/globals';
 
 describe("isAuthorized middleware", () => {
-    let mockRequest: Partial<Request>;
+    let mockRequest: Partial<Request>;//THERE IS A SEMICOLON AT THE END >:(
     let mockResponse: Partial<Response>;
     let nextFunction: jest.Mock;
 

@@ -5,6 +5,8 @@ import helmet from "helmet";
 import cors from "cors";
 import dotenv from "dotenv";
 import setupSwagger from "../src/config/swagger";
+import uploadRoute from '../src/api/v1/routes/uploadRouter';
+
 const app: Express = express();
 dotenv.config();
 app.use(express.json()); //  use JSON body parsing
@@ -42,6 +44,6 @@ app.get("/api/v1/health", (req, res) => {
 // Route handler for items
 app.use("/api/v1", musicRouter, cors(authenticatedCorsOptions));
 app.use("/api-docs", cors(publicCorsOptions));
-
+app.use('/api/upload', uploadRoute);
 // Export the app
 export default app;

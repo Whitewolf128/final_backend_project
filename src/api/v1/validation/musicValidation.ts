@@ -60,10 +60,11 @@ export const postSchemas = {
             nameOfArtist: Joi.string().required().min(5).max(80),
             album: Joi.string().required().min(10).max(80),
             songsReleased: Joi.number().required().integer().max(20).positive().precision(2),
-            releaseDate: Joi.date().required().greater('now'),
+            releaseDate: Joi.date().required().less('now'),
             popularSong:  Joi.string().required().min(2).max(50),
-            funFact:  Joi.string().required().min(30).max(200),
-            yearsToured: Joi.string().min(4).max(9),
+            funFact:  Joi.string().required().min(30).max(300),
+            toured: Joi.boolean().required().valid(true,false),
+            yearsToured: Joi.string().min(4).max(15),
             content: Joi.string().required().messages({
                 "any.required": "Content is required",
                 "string.empty": "Content cannot be empty",
@@ -77,9 +78,10 @@ export const postSchemas = {
             nameOfArtist: Joi.string().required().min(5).max(80),
             album: Joi.string().required().min(10).max(80),
             songsReleased: Joi.number().required().integer().max(20).positive().precision(2),
-            releaseDate: Joi.date().required().greater('now'),
+            releaseDate: Joi.date().required().less('now'),
             popularSong:  Joi.string().required().min(2).max(50),
             funFact:  Joi.string().required().min(30).max(200),
-            yearsToured: Joi.string().min(4).max(9)
+            toured: Joi.boolean().required().valid(true,false),
+            yearsToured: Joi.string().min(4).max(15)
     },
 };

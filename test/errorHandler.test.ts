@@ -10,7 +10,7 @@ import { HTTP_STATUS } from "../src/constants/httpConstants";
 import { jest, beforeEach, afterEach, afterAll, it, expect, describe } from '@jest/globals';
 
 describe("errorHandler middleware", () => {
-    let mockRequest: Partial<Request>;
+    let mockRequest: Partial<Request>; //THERE IS A SEMICOLON AT THE END >:(
     let mockResponse: Partial<Response>;
     let nextFunction: jest.Mock;
     let jsonMock: jest.Mock;

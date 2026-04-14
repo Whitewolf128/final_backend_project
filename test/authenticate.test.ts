@@ -13,7 +13,7 @@ jest.mock("../src/config/firebaseConfig", () => ({
 }));
 
 describe("authenticate middleware", () => {
-    let mockRequest: Partial<Request>;
+    let mockRequest: Partial<Request>;//THERE IS A SEMICOLON AT THE END >:(
     let mockResponse: Partial<Response>;
     let nextFunction: jest.Mock;
 
