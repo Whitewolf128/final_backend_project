@@ -1,9 +1,9 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import authenticate from "../src/api/v1/middleware/authenticate";
 import { auth } from "../src/config/firebaseConfig";
 import { AuthenticationError } from "../src/api/v1/errors/errors";
 import { HTTP_STATUS } from "../src/constants/httpConstants";
-import { jest, beforeEach, afterEach, afterAll, it, expect, describe } from '@jest/globals';
+import { jest, beforeEach, it, expect, describe } from '@jest/globals';
 
 // Mock Firebase auth
 jest.mock("../src/config/firebaseConfig", () => ({
@@ -52,8 +52,8 @@ describe("authenticate middleware", () => {
             authorization: "Bearer invalid-token",
         };
 
-        (auth.verifyIdToken as jest.Mock).mockRejectedValueOnce(
-            await Promise.reject(new Error("Invalid token"))
+        (auth.verifyIdToken as jest.MockedFunction<typeof auth.verifyIdToken>).mockRejectedValueOnce(
+            new Error("Invalid token")
         );
           // Act
         await authenticate(

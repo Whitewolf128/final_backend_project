@@ -1,4 +1,4 @@
-import * as postService from '../src/api/v1/services/musicServices';
+import {getAllMusic, createMusic, deleteMusic, updateMusic} from '../src/api/v1/services/musicServices';
 import * as firestoreRepository from '../src/api/v1/repositories/firestoreRepository';
 import { jest, beforeEach, it, expect, describe } from '@jest/globals';
 
@@ -6,44 +6,129 @@ import { jest, beforeEach, it, expect, describe } from '@jest/globals';
 // Mock the repository module
 jest.mock('../src/api/v1/repositories/firestoreRepository');
 
-describe('Post Services', () => {
+describe('Music Services', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     });
 
-    describe('Post Service - CreatePost', () => {
+    describe('Music Service - CreateMusic', () => {
     // test case # 1
-        it('should create a new post successfully', async () => {
+        it('should create a new music successfully', async () => {
             // Arrange
             const mockInput = { 
-                Id: "test-music-id",
-                content: "test content"
+                nameOfArtist: "Test Artist",
+                album: "Test Album",
+                releaseDate: new Date(),
+                songsReleased: 10,
+                popularSong: "Test Song",
+                funFact: "Test fact",
+                toured: true,
+                yearsToured: "2020-2021"
             };
 
-            const mockRepositoryResponse = "post-1";
+            const mockRepositoryResponse = "music-1";
             
             (firestoreRepository.createDocument as jest.MockedFunction<typeof firestoreRepository.createDocument>).mockResolvedValue(mockRepositoryResponse);//Why do i need a comma >:(
             
             // Act
-            const result = await postService.createPost(mockInput);
+            const result = await createMusic(mockInput);
 
             // Assert
-            expect(firestoreRepository.createDocument).toHaveBeenCalledWith("posts", 
+            expect(firestoreRepository.createDocument).toHaveBeenCalledWith("music", 
             expect.objectContaining({
-                Id: mockInput.Id,
-                content: mockInput.content
+                nameOfArtist: mockInput.nameOfArtist,
+                album: mockInput.album,
+                releaseDate: mockInput.releaseDate,
+                songsReleased: mockInput.songsReleased,
+                popularSong: mockInput.popularSong,
+                funFact: mockInput.funFact,
+                toured: mockInput.toured,
+                yearsToured: mockInput.yearsToured
             })
             );
 
             expect(result).toEqual(
             {
                 id: mockRepositoryResponse,
-                Id: mockInput.Id,
-                content: mockInput.content,
-                createdAt: expect.any(Date),
-                updatedAt: expect.any(Date)
+                nameOfArtist: mockInput.nameOfArtist,
+                album: mockInput.album,
+                releaseDate: mockInput.releaseDate,
+                songsReleased: mockInput.songsReleased,
+                popularSong: mockInput.popularSong,
+                funFact: mockInput.funFact,
+                toured: mockInput.toured,
+                yearsToured: mockInput.yearsToured,
+                createdAt: expect.any(String),
+                updatedAt: expect.any(String)
             }
             );
         });
+    });
+});
+
+
+   // test case # 2
+describe('Music Service - GetAllMusic', () => {
+
+    it('should retrieve the list of all music successfully', async () => {
+      // Arrange
+      const mockRepositoryResponse = { 
+        // response should be an array containing all music documents from firestore
+            id: "music-1",
+            userId: "user-1",
+            content: "test content",
+            createdAt: "2026-04-15T21:14:39.474Z",
+            updatedAt: "2026-04-15T21:14:39.474Z"
+      };
+
+      (firestoreRepository.getDocuments as jest.MockedFunction<typeof firestoreRepository.getDocuments>).mockResolvedValue({
+        docs: [
+            {
+                id: mockRepositoryResponse.id,
+                data: () => ({
+                    userId: mockRepositoryResponse.userId,
+                    content: mockRepositoryResponse.content,
+                    createdAt: mockRepositoryResponse.createdAt,
+                    updatedAt: mockRepositoryResponse.updatedAt,
+                }),
+            },
+        ],
+      } as any);
+
+      // Act
+      const result = await getAllMusic();
+
+      // Assert - call firestore repository function with the collection name
+      expect(firestoreRepository.getDocuments).toHaveBeenCalled();
+
+      // expected eresults should be an array matching with the mockRepositoryResponse
+      expect(result).toEqual([mockRepositoryResponse]);
+    });
+});
+
+describe('Music Service - DeleteMusic', () => {
+    it('should delete a music entry and return confirmation message', () => {
+        // Arrange
+        const mockId = "music-1";
+
+        // Act
+        const result = deleteMusic(mockId);
+
+        // Assert
+        expect(result).toBe("Music has been deleted");
+    });
+});
+
+describe('Music Service - UpdateMusic', () => {
+    it('should update a music entry and return confirmation message', () => {
+        // Arrange
+        const mockId = "music-1";
+        const mockMusic = "Updated Album Name";
+
+        // Act
+        const result = updateMusic(mockId, mockMusic);
+
+        // Assert
+        expect(result).toBe("Music has been updated");
     });
 });

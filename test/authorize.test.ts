@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import isAuthorized from "../src/api/v1/middleware/authorize";
 import { AuthorizationError } from "../src/api/v1/errors/errors";
-import { jest, beforeEach, afterEach, afterAll, it, expect, describe } from '@jest/globals';
+import { jest, beforeEach, it, expect, describe } from '@jest/globals';
 
 describe("isAuthorized middleware", () => {
     let mockRequest: Partial<Request>;//THERE IS A SEMICOLON AT THE END >:(

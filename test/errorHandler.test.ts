@@ -1,13 +1,12 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import errorHandler from "../src/api/v1/middleware/errorHandler";
 import {
-    AppError,
     AuthenticationError,
     AuthorizationError,
     ServiceError,
 } from "../src/api/v1/errors/errors";
 import { HTTP_STATUS } from "../src/constants/httpConstants";
-import { jest, beforeEach, afterEach, afterAll, it, expect, describe } from '@jest/globals';
+import { jest, beforeEach, it, expect, describe } from '@jest/globals';
 
 describe("errorHandler middleware", () => {
     let mockRequest: Partial<Request>; //THERE IS A SEMICOLON AT THE END >:(

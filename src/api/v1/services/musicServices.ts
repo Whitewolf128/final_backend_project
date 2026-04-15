@@ -71,7 +71,15 @@ export const deleteMusic = (id: string): string => {
     return "Music has been deleted";
 };
 
-export function createPost(mockInput: { Id: string; content: string; }) {
-    throw new Error('Function not implemented.');
-}
+export const createPost = async (postData: { Id: string; content: string }): Promise<{ id: string; Id: string; content: string; createdAt: Date; updatedAt: Date }> => {
+    const now = new Date();
+    const newPost = {
+        Id: postData.Id,
+        content: postData.content,
+        createdAt: now,
+        updatedAt: now,
+    };
+    const id = await firestoreRepository.createDocument("posts", newPost);
+    return { id, ...newPost };
+};
 // ... other service functions (getPostById, updatePost, deletePost) ...
