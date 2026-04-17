@@ -13,43 +13,51 @@ import "@joi/date";
  *       type: object
  *       required:
  *         - id
- *         - name
- *         - capacity
- *         - registrationCount
- *         - date
- * *       - status
- *         - category
+ *         - nameOfArtist
+ *         - album
+ *         - songsReleased
+ *         - releaseDate
+ *         - popularSong
+ *         - funFact
+ *         - toured
+ *         - yearsToured
  *       properties:
  *         id:
  *           type: string
  *           description: Unique identifier for the user
  *           example: "f5gk9a3y4a8y5"
- *         name:
+ *         nameOfArtist:
  *           type: string
- *           description: the events name
- *           example: "fluffy show"
- *         capacity:
+ *           description: the name of the artist
+ *           example: "Ozzy Osbourne"
+ *         album:
+ *           type: string
+ *           description: the name of the album
+ *           example: "Blizzard of Ozz"
+ *         songsReleased:
  *           type: number
- *           description: How many people could go
- *           example: 100
- *         registrationCount:
- *           type: number
- *           description: How many people are going
- *           example: 95
- *         date:
+ *           description: Number of songs released
+ *           example: 12
+ *         releaseDate:
  *           type: date
- *           description: when the event takes place
- *           example: "2026-03-06"
- *         status:
+ *           description: Release date of the album
+ *           example: "1980-09-20"
+ *         popularSong:
  *           type: string
- *           description: The current status of the event
- *           valid: "active", "cancelled", "completed"
- *           example: "completed"
- *         category:
+ *           description: Most popular song from the album
+ *           example: "Crazy Train"
+ *         funFact:
  *           type: string
- *           description: the type of the event
- *           valid: "conference", "workshop", "meetup", "seminar", "general"
- *           example: "general"
+ *           description: Fun fact about the artist or album
+ *           example: "The first album Ozzy released after being booted from Black Sabbath and the first album to feature guitarist Randy Rhoads."
+ *         toured:
+ *           type: boolean
+ *           description: Whether the artist toured for this album
+ *           example: true
+ *         yearsToured:
+ *           type: string
+ *           description: How long the artist toured for this album
+ *           example: "1.03"
  */
 
 // Post operation schemas organized by request part
