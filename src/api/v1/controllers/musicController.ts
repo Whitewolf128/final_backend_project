@@ -44,7 +44,7 @@ export const createMusicsController = async (req: Request,
             popularSong,
             funFact,
             toured,
-            monthsToured,
+            yearsToured,
             createdAt,
             updatedAt
         } = req.body;
@@ -58,7 +58,7 @@ export const createMusicsController = async (req: Request,
             popularSong,
             funFact,
             toured,
-            monthsToured,
+            yearsToured,
             createdAt,
             updatedAt
         };

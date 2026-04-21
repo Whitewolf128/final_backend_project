@@ -38,7 +38,7 @@ export const createMusic = async( musicData: {
     popularSong: string;
     funFact: string;
     toured: boolean;
-    monthsToured: string;
+    yearsToured: string;
 }): Promise<Music> =>{
     try{
         const newMusic: Music = {
@@ -49,7 +49,7 @@ export const createMusic = async( musicData: {
             popularSong:musicData.popularSong,
             funFact: musicData.funFact,
             toured: musicData.toured,
-            monthsToured: musicData.monthsToured,
+            yearsToured: musicData.yearsToured,
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString()
         };
