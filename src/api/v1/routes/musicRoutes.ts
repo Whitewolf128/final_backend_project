@@ -24,10 +24,10 @@ musicRouter.post(
 // API doc 1: GET event endpoint with request parameters
 /**
  * @openapi
- * /Events/:id:
+ * /Music/:id:
  *   get:
  *     summary: Retrieve a event by ID (Admin only)
- *     tags: [Events]
+ *     tags: [Music]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -58,10 +58,10 @@ musicRouter.get("/music", getAllMusicsController);
 // API doc 2: Post event endpoint with request parameters
 /**
  * @openapi
- * /events/:id:
+ * /Music/:id:
  *   post:
  *     summary: Retrieve a event by ID (Admin only)
- *     tags: [events]
+ *     tags: [Music]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -93,10 +93,10 @@ musicRouter.post("/music", validateRequest(postSchemas.create), createMusicsCont
 // API doc 1: GET event endpoint with request parameters
 /**
  * @openapi
- * /events/:id:
+ * /Music/:id:
  *   update:
  *     summary: Retrieve a event by ID (Admin only)
- *     tags: [events]
+ *     tags: [Music]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -127,10 +127,10 @@ musicRouter.put("/music/:id", updateMusicController);
 // API doc 1: GET event endpoint with request parameters
 /**
  * @openapi
- * /events/:id:
+ * /Music/:id:
  *   delete:
  *     summary: Retrieve a event by ID (Admin only)
- *     tags: [events]
+ *     tags: [Music]
  *     security:
  *       - bearerAuth: []
  *     parameters:

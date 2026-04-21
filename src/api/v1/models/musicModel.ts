@@ -7,7 +7,7 @@ export interface Music {
     popularSong: string;
     funFact: string;
     toured: boolean;
-    yearsToured: string;
+    monthsToured: string;
     createdAt?: string;
     updatedAt?: string;
 }

@@ -15,7 +15,7 @@ const userRouter: Router = express.Router();
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - name: uid
+ *       - name: id
  *         in: path
  *         required: true
  *         schema:

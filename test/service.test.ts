@@ -23,7 +23,7 @@ describe('Music Services', () => {
                 popularSong: "Test Song",
                 funFact: "Test fact",
                 toured: true,
-                yearsToured: "2020-2021"
+                monthsToured: "2020-2021"
             };
 
             const mockRepositoryResponse = "music-1";
@@ -43,7 +43,7 @@ describe('Music Services', () => {
                 popularSong: mockInput.popularSong,
                 funFact: mockInput.funFact,
                 toured: mockInput.toured,
-                yearsToured: mockInput.yearsToured
+                monthsToured: mockInput.monthsToured
             })
             );
 
@@ -57,7 +57,7 @@ describe('Music Services', () => {
                 popularSong: mockInput.popularSong,
                 funFact: mockInput.funFact,
                 toured: mockInput.toured,
-                yearsToured: mockInput.yearsToured,
+                monthsToured: mockInput.monthsToured,
                 createdAt: expect.any(String),
                 updatedAt: expect.any(String)
             }

@@ -20,7 +20,7 @@ import "@joi/date";
  *         - popularSong
  *         - funFact
  *         - toured
- *         - yearsToured
+ *         - monthsToured
  *       properties:
  *         id:
  *           type: string
@@ -54,7 +54,7 @@ import "@joi/date";
  *           type: boolean
  *           description: Whether the artist toured for this album
  *           example: true
- *         yearsToured:
+ *         monthsToured:
  *           type: string
  *           description: How long the artist toured for this album
  *           example: "1.03"
@@ -72,7 +72,7 @@ export const postSchemas = {
             popularSong:  Joi.string().required().min(2).max(50),
             funFact:  Joi.string().required().min(30).max(300),
             toured: Joi.boolean().required().valid(true,false),
-            yearsToured: Joi.string().min(4).max(15),
+            monthsToured: Joi.string().min(4).max(15),
             content: Joi.string().required().messages({
                 "any.required": "Content is required",
                 "string.empty": "Content cannot be empty",
@@ -90,6 +90,6 @@ export const postSchemas = {
             popularSong:  Joi.string().required().min(2).max(50),
             funFact:  Joi.string().required().min(30).max(200),
             toured: Joi.boolean().required().valid(true,false),
-            yearsToured: Joi.string().min(4).max(15)
+            monthsToured: Joi.string().min(4).max(15)
     },
 };
