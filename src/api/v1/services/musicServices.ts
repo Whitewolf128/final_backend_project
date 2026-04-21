@@ -7,8 +7,10 @@ import * as firestoreRepository from "../repositories/firestoreRepository";
  * @throws {Error} - If validation or repository operation fails.
  */
 
+// Define the Firestore collection name for music documents
 const COLLECTION = "music";
 
+// Service function to retrieve all music documents from Firestore
 export const getAllMusic = async(): Promise<Music[]> => {
     try{
         const snapshot = await firestoreRepository.getDocuments(COLLECTION);
@@ -21,12 +23,13 @@ export const getAllMusic = async(): Promise<Music[]> => {
         });
         return music; 
     }
+    // Catch any errors that occur during the retrieval process and throw a new error with a descriptive message
     catch (error:unknown){
         const errorMessage = error instanceof Error ? error.message: "Unknown error";
-        throw new Error(`Failed to retrieve all products: ${errorMessage}`);
+        throw new Error(`Failed to retrieve all music: ${errorMessage}`);
     }
 }
-
+// Service function to create a new music document in Firestore
 export const createMusic = async( musicData: {
     nameOfArtist: string;
     album: string;
@@ -54,23 +57,23 @@ export const createMusic = async( musicData: {
         return{id, ...newMusic} as Music;
 
     }
-
+// Catch any errors that occur during the creation process and throw a new error with a descriptive message
     catch(error: unknown){
         const errorMessage = error instanceof Error ? error.message: "Unknown error";
         throw new Error(`Failed to create music: ${errorMessage}`);
     }
 };
-
+// Service function to update an existing music document in Firestore
 export const updateMusic = (id: string, music: string): string => {
     // Logic to update an item in the database
     return "Music has been updated";
 };
-
+// Service function to delete an existing music document from Firestore
 export const deleteMusic = (id: string): string => {
     // Logic to delete an item from the database
     return "Music has been deleted";
 };
-
+// Service function to retrieve a music document by its ID from Firestore
 export const createPost = async (postData: { Id: string; content: string }): Promise<{ id: string; Id: string; content: string; createdAt: Date; updatedAt: Date }> => {
     const now = new Date();
     const newPost = {

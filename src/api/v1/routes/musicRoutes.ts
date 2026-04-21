@@ -1,3 +1,4 @@
+// Import necessary modules and middleware for the music routes
 import express, { Router } from "express";
 import {createMusicsController, getAllMusicsController, updateMusicController, deleteMusicController} from "../controllers/musicController"
 import { validateRequest } from "../middleware/validate";
@@ -8,6 +9,7 @@ import { setCustomClaims } from "../controllers/musicController";
 import isAuthorized from "../middleware/authorize";
 const musicRouter: Router = express.Router();
 
+//  Define CORS options for authenticated routes, allowing only specified origins and credentials
 const authenticatedCorsOptions = {
     origin: process.env.ALLOWED_ORIGINS?.split(",") || [],
     credentials: true,
@@ -159,5 +161,5 @@ musicRouter.put("/music/:id", updateMusicController);
  */
 musicRouter.delete("/music/:id", deleteMusicController);
 
-
+// export the music router to be used in the main application
 export default musicRouter;

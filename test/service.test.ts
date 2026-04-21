@@ -1,3 +1,4 @@
+// Test file for music services
 import {getAllMusic, createMusic, deleteMusic, updateMusic} from '../src/api/v1/services/musicServices';
 import * as firestoreRepository from '../src/api/v1/repositories/firestoreRepository';
 import { jest, beforeEach, it, expect, describe } from '@jest/globals';
@@ -5,12 +6,12 @@ import { jest, beforeEach, it, expect, describe } from '@jest/globals';
 
 // Mock the repository module
 jest.mock('../src/api/v1/repositories/firestoreRepository');
-
+// Clear all mocks before each test
 describe('Music Services', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     });
-
+// Test case for createMusic service
     describe('Music Service - CreateMusic', () => {
     // test case # 1
         it('should create a new music successfully', async () => {
@@ -46,7 +47,7 @@ describe('Music Services', () => {
                 monthsToured: mockInput.monthsToured
             })
             );
-
+// expected result should match the mockRepositoryResponse and the input data
             expect(result).toEqual(
             {
                 id: mockRepositoryResponse,
@@ -67,9 +68,9 @@ describe('Music Services', () => {
 });
 
 
-   // test case # 2
+   // test case # 2 - GetAllMusic service
 describe('Music Service - GetAllMusic', () => {
-
+// test case for retrieving all music entries successfully
     it('should retrieve the list of all music successfully', async () => {
       // Arrange
       const mockRepositoryResponse = { 
@@ -105,7 +106,7 @@ describe('Music Service - GetAllMusic', () => {
       expect(result).toEqual([mockRepositoryResponse]);
     });
 });
-
+// test case # 3 - DeleteMusic service
 describe('Music Service - DeleteMusic', () => {
     it('should delete a music entry and return confirmation message', () => {
         // Arrange
@@ -118,8 +119,9 @@ describe('Music Service - DeleteMusic', () => {
         expect(result).toBe("Music has been deleted");
     });
 });
-
+// test case # 4 - UpdateMusic service
 describe('Music Service - UpdateMusic', () => {
+// test case for updating a music entry successfully
     it('should update a music entry and return confirmation message', () => {
         // Arrange
         const mockId = "music-1";

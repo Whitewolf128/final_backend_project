@@ -18,6 +18,8 @@ import { HTTP_STATUS } from "../../../constants/httpConstants";
  * @param {NextFunction} next - The next middleware function.
  * @returns {Promise<void>}
  */
+
+// export a function to set custom claims for a user
 export const setCustomClaims = async (
     req: Request,
     res: Response,

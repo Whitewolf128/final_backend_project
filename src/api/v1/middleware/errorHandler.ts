@@ -1,4 +1,6 @@
+// External library imports
 import { Request, Response, NextFunction } from "express";
+// Internal module imports
 import { AppError } from "../errors/errors";
 import { HTTP_STATUS } from "../../../constants/httpConstants";
 import { errorResponse } from "../models/responseModel";
@@ -19,12 +21,14 @@ import { errorResponse } from "../models/responseModel";
  * @param res - Express response object
  * @param _next - Express next function (unused but required for Express error middleware signature)
  */
+// export a global error handling middleware function for Express
 const errorHandler = (
     err: Error | null,
     req: Request,
     res: Response,
     _next: NextFunction
 ): void => {
+    // If no error object is provided, log a warning and return a generic error response
     if (!err) {
         console.error("Error: null or undefined error received");
         res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json(
@@ -51,5 +55,5 @@ const errorHandler = (
         );
     }
 };
-
+// export the errorHandler middleware function as the default export of this module
 export default errorHandler;

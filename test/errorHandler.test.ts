@@ -7,7 +7,7 @@ import {
 } from "../src/api/v1/errors/errors";
 import { HTTP_STATUS } from "../src/constants/httpConstants";
 import { jest, beforeEach, it, expect, describe } from '@jest/globals';
-
+// Test suite for the errorHandler middleware
 describe("errorHandler middleware", () => {
     let mockRequest: Partial<Request>; //THERE IS A SEMICOLON AT THE END >:(
     let mockResponse: Partial<Response>;
@@ -26,7 +26,7 @@ describe("errorHandler middleware", () => {
         } as unknown as Response;
         nextFunction = jest.fn();
     });
-
+// Test case for handling AuthenticationError
     it("should handle AuthenticationError with correct status and message", () => {
         // Arrange
         const error = new AuthenticationError("Invalid token", "TOKEN_INVALID");
@@ -50,7 +50,7 @@ describe("errorHandler middleware", () => {
             timestamp: expect.any(String),
         });
     });
-
+// Test case for handling AuthorizationError
     it("should handle AuthorizationError with correct status and message", () => {
         // Arrange
         const error = new AuthorizationError(
@@ -77,8 +77,8 @@ describe("errorHandler middleware", () => {
             timestamp: expect.any(String),
         });
     });
-
-    it("should handle generic Error with 500 status", () => {
+// Test case for handling ServiceError
+    it("should handle ServiceError with correct status and message", () => {
         // Arrange
         const error = new Error("Unexpected error");
 
@@ -103,7 +103,7 @@ describe("errorHandler middleware", () => {
             timestamp: expect.any(String),
         });
     });
-
+// Test case for handling null error
     it("should handle null error gracefully", () => {
         // Act
         errorHandler(
@@ -126,7 +126,7 @@ describe("errorHandler middleware", () => {
             timestamp: expect.any(String),
         });
     });
-
+// Test case for handling ServiceError with custom status code
     it("should handle ServiceError with custom status code", () => {
         // Arrange
         const error = new ServiceError(

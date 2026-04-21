@@ -1,3 +1,4 @@
+// External library imports
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
@@ -8,6 +9,7 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
+// Configure multer storage settings
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, uploadDir),
   filename: (_req, file, cb) => {
@@ -15,5 +17,5 @@ const storage = multer.diskStorage({
     cb(null, `${timestamp}-${file.originalname}`);
   },
 });
-
+// Create multer instance with storage configuration
 export const upload = multer({ storage });

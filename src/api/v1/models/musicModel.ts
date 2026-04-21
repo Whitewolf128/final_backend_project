@@ -1,3 +1,4 @@
+// Define the Music interface representing the structure of a music record in the application
 export interface Music {
     id?: string;
     nameOfArtist: string;

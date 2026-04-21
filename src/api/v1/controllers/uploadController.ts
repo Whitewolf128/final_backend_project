@@ -1,5 +1,8 @@
+// defines imports
 import { Request, Response } from 'express';
 import { handleUploadService } from '../services/uploadService';
+
+// a controller that handles file uploads
 
 export const uploadFile = (req: Request, res: Response) => {
   if (!req.file) {

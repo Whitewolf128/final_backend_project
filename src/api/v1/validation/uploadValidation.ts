@@ -1,6 +1,8 @@
+// Import necessary modules for file upload validation
 import multerModule from 'multer';
 import path from 'path';
 
+// Configure multer storage settings and validation rules for file uploads
 const storage = multerModule.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/');
@@ -10,6 +12,7 @@ const storage = multerModule.diskStorage({
   }
 });
 
+// Create a multer instance with storage configuration and validation rules for file type and size
 const uploadWithValidation = multerModule({
   storage: storage,
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
@@ -21,4 +24,5 @@ const uploadWithValidation = multerModule({
     }
   }
 });
+// Export the configured multer instance for use in other parts of the application
 export { uploadWithValidation };

@@ -46,5 +46,5 @@ userRouter.get(
     isAuthorized({ hasRole: ["admin"] }),
     getUserDetails
 );
-
+//  export the user router to be used in the main application
 export default userRouter;

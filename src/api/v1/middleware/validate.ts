@@ -1,21 +1,25 @@
+// External library imports
 import { Request, Response, NextFunction } from "express";
 import { ObjectSchema } from "joi";
-
+// Internal module imports
 import { MiddlewareFunction } from "../types/expressTypes";
 import { HTTP_STATUS } from "../../../constants/httpConstants";
 
+// Define interfaces for request schemas and validation options
 interface RequestSchemas {
     body?: ObjectSchema;
     params?: ObjectSchema;
     query?: ObjectSchema;
 }
 
+// Define options for validation middleware
 interface ValidationOptions {
     stripBody?: boolean;
     stripQuery?: boolean;
     stripParams?: boolean;
 }
 
+// Middleware function to validate request body, params, and query using Joi schemas
 export const validateRequest = (
     schemas: RequestSchemas,
     options: ValidationOptions = {}
@@ -28,6 +32,7 @@ export const validateRequest = (
         ...options,
     };
 
+    // Return the middleware function that will perform validation
     return (req: Request, res: Response, next: NextFunction) => {
         try {
             const errors: string[] = [];
@@ -42,13 +47,14 @@ export const validateRequest = (
                     abortEarly: false,
                     stripUnknown: shouldStrip,
                 });
-
+                // If there are validation errors, collect them with the part name for better error messages
                 if (error) {
                     errors.push(
                         ...error.details.map(
                             (detail) => `${partName}: ${detail.message}`
                         )
                     );
+                    // If there are errors, we return the original data to avoid stripping valid fields when validation fails
                 } else if (shouldStrip) {
                     return value;
                 }
@@ -66,6 +72,7 @@ export const validateRequest = (
                 Object.assign(req.body, value);
             }
 
+            // Validate params and query similarly, but usually we don't strip params as they are defined by the route
             if (schemas.params) {
                 const value = validatePart(
                     schemas.params,
@@ -75,7 +82,7 @@ export const validateRequest = (
                 );
                 Object.assign(req.params, value);
             }
-
+            // For query parameters, we can strip unknown fields by default to prevent unexpected query parameters from being processed
             if (schemas.query) {
                 const value = validatePart(
                     schemas.query,
@@ -94,7 +101,9 @@ export const validateRequest = (
             }
 
             next();
-        } catch (error: unknown) {
+        } 
+        // If an unexpected error occurs during validation, catch it and return a generic error response
+        catch (error: unknown) {
             res.status(HTTP_STATUS.BAD_REQUEST).json({
                 error: (error as Error).message,
             });

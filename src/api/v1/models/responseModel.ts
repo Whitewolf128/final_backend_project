@@ -1,3 +1,4 @@
+// Define a standardized API response format for successful and error responses
 export interface ApiResponse<T> {
     status: string;
     data?: T;
@@ -6,6 +7,7 @@ export interface ApiResponse<T> {
     code?: string;
 }
 
+// Create a standardized success response object
 export const successResponse = <T>(
     data?: T,
     message?: string
@@ -23,6 +25,7 @@ export const successResponse = <T>(
  * @param {string} code - The error code for programmatic handling.
  * @returns {object} A formatted error response object.
  */
+// export a function to create a standardized error response object
 export const errorResponse = (message: string, code: string) => ({
     success: false,
     error: {

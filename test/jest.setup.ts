@@ -1,3 +1,4 @@
+// Jest setup file to configure global mocks and test environment
 import { jest, afterEach, afterAll } from '@jest/globals';
 
 // Always mock firebase in every test

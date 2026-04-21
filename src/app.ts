@@ -32,7 +32,7 @@ setupSwagger(app);
 app.get("/", (req, res) => {
     res.send("Hello, World!");
 });
-
+// Health check endpoint to verify that the server is running and healthy
 app.get("/api/v1/health", (req, res) => {
     res.json({
         status: "OK",

@@ -17,6 +17,7 @@ import { HTTP_STATUS } from "../../../constants/httpConstants";
  * @param {NextFunction} next - The next middleware function.
  * @returns {Promise<void>}
  */
+// export a function to get user details by their ID
 export const getUserDetails = async (
     req: Request,
     res: Response,

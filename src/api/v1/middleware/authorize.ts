@@ -18,6 +18,7 @@ import { AuthorizationError } from "../errors/errors";
  * @param {AuthorizationOptions} opts - The authorization options.
  * @returns {MiddlewareFunction} The middleware function.
  */
+// export a middleware function to check if a user is authorized based on their role or UID
 const isAuthorized = (opts: AuthorizationOptions): MiddlewareFunction => {
     return (req: Request, res: Response, next: NextFunction) => {
         try {
@@ -53,5 +54,5 @@ const isAuthorized = (opts: AuthorizationOptions): MiddlewareFunction => {
         }
     };
 };
-
+// export the isAuthorized middleware function as the default export of this module
 export default isAuthorized;

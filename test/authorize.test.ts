@@ -1,8 +1,9 @@
+// Import necessary modules and dependencies for testing the isAuthorized middleware
 import { Request, Response } from "express";
 import isAuthorized from "../src/api/v1/middleware/authorize";
 import { AuthorizationError } from "../src/api/v1/errors/errors";
 import { jest, beforeEach, it, expect, describe } from '@jest/globals';
-
+// Test suite for the isAuthorized middleware
 describe("isAuthorized middleware", () => {
     let mockRequest: Partial<Request>;//THERE IS A SEMICOLON AT THE END >:(
     let mockResponse: Partial<Response>;
@@ -37,7 +38,7 @@ describe("isAuthorized middleware", () => {
         // Called without error
         expect(nextFunction).toHaveBeenCalledWith();
     });
-
+// Test case for when user does not have required role and allowSameUser is false
     it("should pass AuthorizationError to next() when user has insufficient role", () => {
         // Arrange
         mockResponse.locals = {
@@ -64,6 +65,7 @@ describe("isAuthorized middleware", () => {
         expect(error.statusCode).toBe(403);
     });
 
+    // Test case for when the same user is accessing their own resource and allowSameUser is true
     it("should call next() when same user and allowSameUser is true", () => {
         // Arrange
         mockRequest.params = { id: "user123" };
@@ -72,7 +74,7 @@ describe("isAuthorized middleware", () => {
             uid: "user123",
             role: "user",
         };
-
+// allowSameUser is enabled
         const middleware = isAuthorized({
             hasRole: ["admin"],
             allowSameUser: true,
@@ -89,7 +91,7 @@ describe("isAuthorized middleware", () => {
         // Should succeed due to allowSameUser
         expect(nextFunction).toHaveBeenCalledWith();
     });
-
+//  Test case for when role is missing in res.locals
     it("should pass AuthorizationError to next() when role is missing", () => {
         // Arrange
         mockResponse.locals = {
@@ -114,7 +116,7 @@ describe("isAuthorized middleware", () => {
         expect(error.message).toBe("Forbidden: No role found");
         expect(error.code).toBe("ROLE_NOT_FOUND");
     });
-
+// Test case for when the same user is accessing their own resource but allowSameUser is false
     it("should not allow same user when allowSameUser is false", () => {
         // Arrange
         mockRequest.params = { id: "user123" };

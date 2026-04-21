@@ -1,3 +1,4 @@
+// Import necessary modules and types from the Firebase Admin SDK
 import { initializeApp, cert, ServiceAccount, App, getApps, AppOptions} from "firebase-admin/app";
 import { getFirestore, Firestore } from "firebase-admin/firestore";
 import { getAuth, Auth } from "firebase-admin/auth";
@@ -53,8 +54,10 @@ const initializeFirebaseAdmin = (): App => {
     }
     return initializeApp(getFirebaseConfig());
 }
+// Get a reference to the Firestore service
 const app: App = initializeFirebaseAdmin();
 const db: Firestore = getFirestore();
 const auth: Auth = getAuth(app);
 
+// Export the Firestore and Auth instances for use in other parts of the application
 export { db, auth };
