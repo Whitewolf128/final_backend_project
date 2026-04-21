@@ -72,7 +72,7 @@ export const postSchemas = {
             popularSong:  Joi.string().required().min(2).max(50),
             funFact:  Joi.string().required().min(30).max(300),
             toured: Joi.boolean().required().valid(true,false),
-            yearsToured: Joi.string().min(4).max(15),
+            yearsToured: Joi.string().min(19).max(31),
             content: Joi.string().required().messages({
                 "any.required": "Content is required",
                 "string.empty": "Content cannot be empty",
@@ -90,6 +90,6 @@ export const postSchemas = {
             popularSong:  Joi.string().required().min(2).max(50),
             funFact:  Joi.string().required().min(30).max(200),
             toured: Joi.boolean().required().valid(true,false),
-            yearsToured: Joi.string().min(4).max(15)
+            yearsToured: Joi.string().min(19).max(31)
     },
 };
