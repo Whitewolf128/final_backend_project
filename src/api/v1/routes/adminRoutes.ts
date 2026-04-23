@@ -2,7 +2,6 @@
 import express from "express";
 import { setCustomClaims } from "../controllers/adminController";
 import authenticate from "../middleware/authenticate";
-import isAuthorized from "../middleware/authorize";
 import cors from "cors";
 
 // create a new router instance for admin routes
@@ -19,7 +18,7 @@ adminRouter.post(
     "/setCustomClaims", cors(authenticatedCorsOptions),
     authenticate,
     //isAuthorized({ hasRole: ["admin"] }),
-    
+
     setCustomClaims
 );
 // export the admin router to be used in the main application
