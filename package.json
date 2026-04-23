@@ -37,7 +37,9 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
-    "testMatch": ["**/test/**/*.test.ts"]
+    "testMatch": [
+      "**/test/**/*.test.ts"
+    ]
   },
   "dependencies": {
     "@joi/date": "^2.1.1",

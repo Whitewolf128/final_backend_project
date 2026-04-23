@@ -79,6 +79,29 @@ export const createMusicsController = async (req: Request,
         });
     }
 };
+
+// Creates a post protected by authentication and role-based authorization
+export const createPostController = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const { userId, content } = req.body as {
+            userId?: string;
+            content?: string;
+        };
+
+        const post = await musicService.createPost({
+            Id: userId ?? "",
+            content: content ?? "",
+        });
+
+        res.status(HTTP_STATUS.CREATED).json(successResponse(post));
+    } catch (error) {
+        next(error);
+    }
+};
 // a controller that handles the update of items
 export const updateMusicController = (req: Request, res: Response): void => {
     try{

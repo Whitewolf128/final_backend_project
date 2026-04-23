@@ -6,6 +6,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import setupSwagger from "../src/config/swagger";
 import uploadRoute from '../src/api/v1/routes/uploadRouter';
+import errorHandler from "./api/v1/middleware/errorHandler";
 
 const app: Express = express();
 dotenv.config();
@@ -45,5 +46,6 @@ app.get("/api/v1/health", (req, res) => {
 app.use("/api/v1", musicRouter, cors(authenticatedCorsOptions));
 app.use("/api-docs", cors(publicCorsOptions));
 app.use('/api/upload', uploadRoute);
+app.use(errorHandler);
 // Export the app
 export default app;

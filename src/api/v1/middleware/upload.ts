@@ -17,5 +17,6 @@ const storage = multer.diskStorage({
     cb(null, `${timestamp}-${file.originalname}`);
   },
 });
+
 // Create multer instance with storage configuration
 export const upload = multer({ storage });

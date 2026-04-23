@@ -1,6 +1,6 @@
 // Import necessary modules and middleware for the music routes
 import express, { Router } from "express";
-import {createMusicsController, getAllMusicsController, updateMusicController, deleteMusicController} from "../controllers/musicController"
+import {createMusicsController, createPostController, getAllMusicsController, updateMusicController, deleteMusicController} from "../controllers/musicController"
 import { validateRequest } from "../middleware/validate";
 import { postSchemas} from "../validation/musicValidation";
 import cors from "cors";
@@ -92,6 +92,13 @@ musicRouter.get("/music", getAllMusicsController);
  */
 
 musicRouter.post("/music", validateRequest(postSchemas.create), createMusicsController);
+
+musicRouter.post(
+    "/posts",
+    authenticate,
+    isAuthorized({ hasRole: ["admin", "manager"] }),
+    createPostController
+);
 // API doc 1: GET event endpoint with request parameters
 /**
  * @openapi
